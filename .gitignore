@@ -12,3 +12,11 @@
 *.pyc
 *.egg-info
 .pytest_cache
+
+# Virtual environments
+bin/
+lib/
+lib64
+pyvenv.cfg
+venv/
+.venv/
