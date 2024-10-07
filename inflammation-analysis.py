@@ -19,11 +19,12 @@ def main(args):
     if not isinstance(InFiles, list):
         InFiles = [args.infiles]
 
+
     if args.full_data_analysis:
-        analyse_data(os.path.dirname(InFiles[0]))
+        analyse_data(os.path.dirname(infiles[0]))
         return
 
-    for filename in InFiles:
+    for filename in infiles:
         inflammation_data = models.load_csv(filename)
 
         view_data = {
