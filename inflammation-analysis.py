@@ -15,9 +15,9 @@ def main(args):
     - selecting the necessary models and views for the current task
     - passing data between models and views
     """
-    InFiles = args.infiles
-    if not isinstance(InFiles, list):
-        InFiles = [args.infiles]
+    infiles = args.infiles
+    if not isinstance(infiles, list):
+        infiles = [args.infiles]
 
 
     if args.full_data_analysis:
