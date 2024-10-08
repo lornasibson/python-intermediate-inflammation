@@ -41,7 +41,8 @@ def load_json(filename):
 
 
 def daily_mean(data):
-    """Calculate the daily mean of a 2D inflammation data array."""
+    """Calculate the daily mean of a 2D inflammation data array.
+    """
     return np.mean(data, axis=0)
 
 
