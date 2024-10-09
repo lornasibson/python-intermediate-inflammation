@@ -16,7 +16,8 @@ def load_csv(filename):
 
     :param filename: Filename of CSV to load
     """
-    return np.loadtxt(fname=filename, delimiter=',')
+    return np.loadtxt(fname=filename, delimiter=",")
+
 
 def load_json(filename):
     """Load a numpy array from a JSON document.
@@ -34,10 +35,9 @@ def load_json(filename):
     :param filename: Filename of CSV to load
 
     """
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(filename, "r", encoding="utf-8") as file:
         data_as_json = json.load(file)
-        return [np.array(entry['observations']) for entry in data_as_json]
-
+        return [np.array(entry["observations"]) for entry in data_as_json]
 
 
 def daily_mean(data):

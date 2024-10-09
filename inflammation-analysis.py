@@ -19,7 +19,6 @@ def main(args):
     if not isinstance(infiles, list):
         infiles = [args.infiles]
 
-
     if args.full_data_analysis:
         analyse_data(os.path.dirname(infiles[0]))
         return
