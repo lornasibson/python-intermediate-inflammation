@@ -60,6 +60,21 @@ def test_load_from_json(tmpdir):
     "test, expected, expect_raises",
     [
         (
+            'hello',
+            None,
+            TypeError
+        ),
+        (
+            3,
+            None,
+            TypeError
+        ),
+        (
+            [1, 2, 3],
+            None,
+            ValueError
+        ),
+        (
             [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
             [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
             None,
@@ -94,9 +109,11 @@ def test_patient_normalise(test, expected, expect_raises):
     """Test normalisation works for arrays of one and positive integers.
        Assumption that test accuracy of two decimal places is sufficient."""
     from inflammation.models import patient_normalise
+    if isinstance(test, list):
+        test = np.array(test)
     if expect_raises is not None:
         with pytest.raises(expect_raises):
-            npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+            npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
     else:
-        npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+        npt.assert_almost_equal(patient_normalise(test), np.array(expected), decimal=2)
 
