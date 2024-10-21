@@ -5,9 +5,11 @@ import pytest
 
 def test_analyse_data():
     from inflammation.compute_data import analyse_data
-    path = Path.cwd() /  "./data"
+    path = Path.cwd() /  "data"
     result = analyse_data(path)
 
+    assert "standard deviation by day" in result
+    result_array = result["standard deviation by day"]
     expected = np.array([0, 0.22510286, 0.18157299, 0.1264423,  0.9495481,
                          0.27118211, 0.25104719, 0.22330897, 0.89680503,
                            0.21573875, 1.24235548,0.63042094, 1.57511696,
@@ -18,8 +20,9 @@ def test_analyse_data():
                            1.43938417, 0.78959769, 0.64913879, 1.16078544,
                            0.42417995, 0.36019114, 0.80801707, 0.50323031,
                            0.47574665, 0.45197398, 0.22070227])
+    npt.assert_array_almost_equal(result_array, expected)
 
-    npt.assert_array_almost_equal(result, expected)
+
 
 @pytest.mark.parametrize('data,expected_output', [
    ([[[0, 1, 0], [0, 2, 0]]], [0, 0, 0]),
