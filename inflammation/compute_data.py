@@ -5,9 +5,19 @@ import os
 import numpy as np
 
 from inflammation import models, views
+from inflammation.csv_data_class import CSVDataSource
 
 
-def analyse_data(data_source):
+def analyse_data(data_dir):
+    """Calculate the standard deviation by day between datasets
+
+    Gets all the inflammation csvs within a directory, works out the mean
+    inflammation value for each day across all datasets, then graphs the
+    standard deviation of these means."""
+    data_source  = CSVDataSource(data_dir)
+    return analyse_data_from_data_source(data_source)
+
+def analyse_data_from_data_source(data_source):
     """Calculate the standard deviation by day between datasets
 
     Gets all the inflammation csvs within a directory, works out the mean
