@@ -6,6 +6,13 @@ import numpy as np
 
 from inflammation import models, views
 
+def load_inflammation_data(data_dir):
+    data_file_paths = glob.glob(os.path.join(data_dir, "inflammation*.csv"))
+    if len(data_file_paths) == 0:
+        raise ValueError(f"No inflammation csv's found in path {data_dir}")
+    data = map(models.load_csv, data_file_paths)
+
+    return data
 
 def analyse_data(data_dir):
     """Calculate the standard deviation by day between datasets
@@ -13,10 +20,7 @@ def analyse_data(data_dir):
     Gets all the inflammation csvs within a directory, works out the mean
     inflammation value for each day across all datasets, then graphs the
     standard deviation of these means."""
-    data_file_paths = glob.glob(os.path.join(data_dir, "inflammation*.csv"))
-    if len(data_file_paths) == 0:
-        raise ValueError(f"No inflammation csv's found in path {data_dir}")
-    data = map(models.load_csv, data_file_paths)
+    data = load_inflammation_data(data_dir)
 
     daily_standard_deviation = compute_standard_deviation_by_day(data)
 
