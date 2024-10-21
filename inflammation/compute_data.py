@@ -24,9 +24,17 @@ def analyse_data(data_dir):
         "standard deviation by day": daily_standard_deviation,
     }
     # views.visualize(graph_data)
-    return daily_standard_deviation
+    return graph_data
 
 def compute_standard_deviation_by_day(data):
+    """Calculates the standard deviation of the datasets by day
+
+    Args:
+        data (np.ndarray): An array of the patient dataset
+
+    Returns:
+        np.ndarray: An array of the standard deviations by day
+    """
     means_by_day = map(models.daily_mean, data)
     means_by_day_matrix = np.stack(list(means_by_day))
     daily_standard_deviation = np.std(means_by_day_matrix, axis=0)
