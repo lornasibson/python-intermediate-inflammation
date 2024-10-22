@@ -2,7 +2,7 @@ from pathlib import Path
 import numpy as np
 import numpy.testing as npt
 import pytest
-from inflammation.csv_data_class import CSVDataSource
+from unittest.mock import Mock
 
 def test_analyse_data():
     from inflammation.compute_data import analyse_data
@@ -36,10 +36,23 @@ ids=['Empty file',
      'Two patients in different files',
      'Two identical patients in two different files'])
 def test_compute_standard_deviation_by_day(data, expected_output):
-   from inflammation.compute_data import compute_standard_deviation_by_day
+    from inflammation.compute_data import compute_standard_deviation_by_day
 
-   result = compute_standard_deviation_by_day(data)
-   npt.assert_array_almost_equal(result, expected_output)
+    result = compute_standard_deviation_by_day(data)
+    npt.assert_array_almost_equal(result, expected_output)
+
+def test_compute_data_mock_source():
+    from inflammation.compute_data import analyse_data_from_data_source
+    data_source = Mock()
+
+    data_source.load_inflammation_data.return_value = [[[0, 2, 0]],
+                                                            [[0, 1, 0]]]
+
+    result = analyse_data_from_data_source(data_source)
+    result_array = result["standard deviation by day"]
+    expected = np.array([0, np.sqrt(0.25), 0])
+
+    npt.assert_array_almost_equal(result_array, expected)
 
 
 
