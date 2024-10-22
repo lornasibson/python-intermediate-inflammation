@@ -5,7 +5,7 @@ import os
 import numpy as np
 
 from inflammation import models, views
-from inflammation.csv_data_class import CSVDataSource
+from inflammation.file_data_class import CSVDataSource
 
 
 def analyse_data(data_dir):
