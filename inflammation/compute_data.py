@@ -1,10 +1,8 @@
 """Module containing mechanism for calculating standard deviation between datasets."""
 
-import glob
-import os
 import numpy as np
 
-from inflammation import models, views
+from inflammation import models
 from inflammation.file_data_class import CSVDataSource
 
 
@@ -27,11 +25,7 @@ def analyse_data_from_data_source(data_source):
 
     daily_standard_deviation = compute_standard_deviation_by_day(data)
 
-    graph_data = {
-        "standard deviation by day": daily_standard_deviation,
-    }
-    # views.visualize(graph_data)
-    return graph_data
+    return daily_standard_deviation
 
 def compute_standard_deviation_by_day(data):
     """Calculates the standard deviation of the datasets by day
