@@ -54,6 +54,11 @@ def daily_min(data):
     """Calculate the daily min of a 2d inflammation data array."""
     return np.min(data, axis=0)
 
+def standard_deviation(data):
+    """Computes and returns a dictionary with standard deviation for data."""
+    std_dev = np.std(data)
+    return {'standard deviation': std_dev}
+
 def patient_normalise(data):
     """
     Normalise patient data from a 2D inflammation data array.
@@ -71,5 +76,4 @@ def patient_normalise(data):
         normalised = data / max_data[:, np.newaxis]
     normalised[np.isnan(normalised)] = 0
     return normalised
-
 
