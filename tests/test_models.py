@@ -56,6 +56,16 @@ def test_load_from_json(tmpdir):
     result = load_json(example_path)
     npt.assert_array_equal(result, [[1, 2, 3], [4, 5, 6]])
 
+@pytest.mark.parametrize('data, expected_standard_deviation', [
+    ([0, 0, 0], 0.0),
+    ([1.0, 1.0, 1.0], 0),
+    ([0.0, 2.0], 1.0)
+])
+def test_daily_standard_deviation(data, expected_standard_deviation):
+    from inflammation.models import standard_deviation
+    result_data = standard_deviation(data)['standard deviation']
+    npt.assert_approx_equal(result_data, expected_standard_deviation)
+
 @pytest.mark.parametrize(
     "test, expected, expect_raises",
     [
