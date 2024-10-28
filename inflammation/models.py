@@ -16,7 +16,8 @@ def load_csv(filename):
 
     :param filename: Filename of CSV to load
     """
-    return np.loadtxt(fname=filename, delimiter=',')
+    return np.loadtxt(fname=filename, delimiter=",")
+
 
 def load_json(filename):
     """Load a numpy array from a JSON document.
@@ -34,14 +35,13 @@ def load_json(filename):
     :param filename: Filename of CSV to load
 
     """
-    with open(filename, 'r', encoding='utf-8') as file:
+    with open(filename, "r", encoding="utf-8") as file:
         data_as_json = json.load(file)
-        return [np.array(entry['observations']) for entry in data_as_json]
-
+        return [np.array(entry["observations"]) for entry in data_as_json]
 
 
 def daily_mean(data):
-    """Calculate the daily mean of a 2d inflammation data array."""
+    """Calculate the daily mean of a 2D inflammation data array."""
     return np.mean(data, axis=0)
 
 
@@ -54,8 +54,26 @@ def daily_min(data):
     """Calculate the daily min of a 2d inflammation data array."""
     return np.min(data, axis=0)
 
-
 def standard_deviation(data):
     """Computes and returns a dictionary with standard deviation for data."""
     std_dev = np.std(data)
     return {'standard deviation': std_dev}
+
+def patient_normalise(data):
+    """
+    Normalise patient data from a 2D inflammation data array.
+    NaN values ignored and normalised to 0
+    Negative values rounded to 0
+    """
+    if not isinstance(data, np.ndarray):
+        raise TypeError('data input should be ndarray')
+    if len(data.shape) != 2:
+        raise ValueError('inflammation array should be 2-dimensional')
+    if np.any(data < 0):
+        raise ValueError('inflammation values should be non-negative')
+    max_data = np.nanmax(data, axis=1)
+    with np.errstate(invalid='ignore', divide='ignore'):
+        normalised = data / max_data[:, np.newaxis]
+    normalised[np.isnan(normalised)] = 0
+    return normalised
+
