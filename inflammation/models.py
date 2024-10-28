@@ -2,8 +2,8 @@
 
 The Model layer is responsible for the 'business logic' part of the software.
 
-Patients' data is held in an inflammation table (2D array) where each row contains 
-inflammation data for a single patient taken over a number of days 
+Patients' data is held in an inflammation table (2D array) where each row contains
+inflammation data for a single patient taken over a number of days
 and each column represents a single day across all patients.
 """
 
@@ -55,12 +55,7 @@ def daily_min(data):
     return np.min(data, axis=0)
 
 
-def s_dev(data):
-    """Computes and returns standard deviation for data."""
-    mmm = np.mean(data, axis=0)
-    devs = []
-    for entry in data:
-        devs.append((entry - mmm) * (entry - mmm))
-
-    s_dev2 = sum(devs) / len(data)
-    return {'standard deviation': s_dev2}
+def standard_deviation(data):
+    """Computes and returns a dictionary with standard deviation for data."""
+    std_dev = np.std(data)
+    return {'standard deviation': std_dev}
