@@ -9,7 +9,6 @@ def visualize(data_dict):
 
     :param data_dict: Dictionary of name -> data to plot
     """
-    # TODO(lesson-design) Extend to allow saving figure to file
 
     num_plots = len(data_dict)
     fig = plt.figure(figsize=((3 * num_plots) + 1, 3.0))
@@ -18,7 +17,7 @@ def visualize(data_dict):
         axes = fig.add_subplot(1, num_plots, i + 1)
 
         axes.set_ylabel(name)
-        axes.plot(data)
+        axes.plot(data, marker='.')
 
     fig.tight_layout()
 
